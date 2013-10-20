@@ -4,7 +4,7 @@
 # Notes:
 #    - Feed is generated from IRSSI log files.
 #    - Script need access to irssi log path and www server folder.
-#    - Set irssi log format '%d.%m.%y %H:%M'
+#    - Set irssi log format '/SET log_timestamp %d.%m.%y %H:%M '
 
 import datetime
 import os
