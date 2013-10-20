@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # Description: Script generates RSS from pasted links.
 # Notes:
 #    - Feed is generated from IRSSI log files.
@@ -10,12 +12,12 @@ import PyRSS2Gen
 import time
 import re
 
-LOG_PATH = "/home/users/savpek/irclogs/"
-OUTPUT_FILE = "/home/users/savpek/sites/savpek.kapsi.fi/www/ircfeed/6zgxdxiroiem95uefzt322.xml"
+LOG_PATH = "/home/users/someuser/irclogs/"
+OUTPUT_FILE = "/home/users/someuser/sites//www/ltpyamt9psoasksa232.xml"
 
 rss = PyRSS2Gen.RSS2(
     title="Irc links",
-    link="http://savpek.kapsi.fi/ircfeed/6zgxdxiroiem95uefzt.xml",
+    link="http://savpek.kapsi.fi/",
     description="",
     lastBuildDate=datetime.datetime.now(),
     items=[])
