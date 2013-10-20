@@ -13,7 +13,7 @@ import time
 import re
 
 LOG_PATH = "/home/users/someuser/irclogs/"
-OUTPUT_FILE = "/home/users/someuser/sites//www/ltpyamt9psoasksa232.xml"
+OUTPUT_FILE = "/home/users/someuser/sites/www/ltpyamt9psoasksa232.xml"
 
 rss = PyRSS2Gen.RSS2(
     title="Irc links",
@@ -52,6 +52,7 @@ while True:
             date = datetime.datetime.strptime(match[0], '%d.%m.%y %H:%M')
             rss.items.append(get_item(logFile['name'], match[1], date))
 
+    rss.items.sort(key=lambda item: item.pubDate)
     rss.lastBuildDate = datetime.datetime.now()
     rss.write_xml(open(OUTPUT_FILE, "w"))
 
