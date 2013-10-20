@@ -13,7 +13,7 @@ import time
 import re
 
 LOG_PATH = "/home/users/someuser/irclogs/"
-OUTPUT_FILE = "/home/users/someuser/sites/www/ltpyamt9psoasksa232.xml"
+OUTPUT_FILE = "/home/users/someuser/sites//www/ltpyamt9psoasksa232.xml"
 
 rss = PyRSS2Gen.RSS2(
     title="Irc links",
@@ -38,22 +38,27 @@ def get_item(logfile, logurl, logtime):
         title="{0}, {1}".format(logfile, logurl),
         link=logurl,
         description=logurl,
-        guid=PyRSS2Gen.Guid(logtime.strftime('%d.%m.%y %H:%M') + logfile + logurl),
+        guid=PyRSS2Gen.Guid(logurl, 1),
         pubDate=logtime)
 
 while True:
-    rss.items = []
-
     logFiles = get_logs(LOG_PATH)
+
+    unique_links = {}
 
     for logFile in logFiles:
         matches = re.findall('(\d*?\.\d*?\.\d*? \d*?:\d*).*?(http.*?)[\n| ]', logFile['contents'], re.S)
         for match in matches:
             date = datetime.datetime.strptime(match[0], '%d.%m.%y %H:%M')
-            rss.items.append(get_item(logFile['name'], match[1], date))
+            url = match[1]
+            unique_links[url] = get_item(logFile['name'], url, date)
+
+    rss.items = unique_links.values()
 
     rss.items.sort(key=lambda item: item.pubDate)
+
     rss.lastBuildDate = datetime.datetime.now()
+
     rss.write_xml(open(OUTPUT_FILE, "w"))
 
     print "Feed updated."
